@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm';
 
 dotenv.config();
 
-const isProd = process.env.CARS_SERVICE_NODE_ENV === 'production';
+const isProd = process.env.CARS_SERVICE_NODE_ENV === 'prod';
 
 export default new DataSource({
   type: 'postgres',

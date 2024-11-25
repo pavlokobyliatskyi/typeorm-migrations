@@ -21,6 +21,22 @@
           "buildTarget": "cars-service:build:production"
         }
       }
+    },
+    "migration:create": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx typeorm migration:create src/database/migrations/{args.name}",
+        "cwd": "apps/cars-service"
+      }
+    },
+    "migration:generate": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx ts-node-dev -P ./tsconfig.app.json ./../../node_modules/typeorm/cli.js migration:generate ./src/database/migrations/{args.name} -d ./src/database/typeorm.config.ts",
+        "cwd": "apps/cars-service"
+      }
     }
   }
 }

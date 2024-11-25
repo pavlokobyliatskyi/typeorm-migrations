@@ -7,4 +7,7 @@ export class CarEntity {
 
   @Column()
   title: string;
+
+  @Column()
+  color: string;
 }

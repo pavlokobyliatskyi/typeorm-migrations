@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: () => {
-        const isProd = process.env.CARS_SERVICE_NODE_ENV === 'production';
+        const isProd = process.env.CARS_SERVICE_NODE_ENV === 'prod';
 
         return {
           type: 'postgres',

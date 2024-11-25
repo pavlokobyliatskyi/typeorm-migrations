@@ -2,7 +2,7 @@
 
 *In this example I am using full paths for better understanding*
 
-Here is a [nx](https://nx.dev/) project which has one app [cars-service](apps/cars-service).
+Here is the [nx](https://nx.dev/) project which has one app [cars-service](apps/cars-service).
 
 The directory is called [database](apps/cars-service/src/database) and is located in the [cars-service](apps/cars-service) app, which is used only for working with migrations in dev and prod.
 
@@ -20,12 +20,14 @@ In dev we work with **.ts** files in prod only with **.js**.
 
 ### Dev
 
+*Change NODE_ENV to **dev** in .env file*
+
 Creating Migrations
 
 *Here **init** is the migration name*
 
 ```bash
-npx typeorm migration:create ./apps/cars-service/src/database/migrations/init --pretty
+npx typeorm migration:create ./apps/cars-service/src/database/migrations/init
 ```
 
 Generating Migrations
@@ -33,7 +35,7 @@ Generating Migrations
 *Here **cars-create-table** is the migration name*
 
 ```bash
-npx ts-node-dev -P ./apps/cars-service/tsconfig.app.json ./node_modules/typeorm/cli.js migration:generate ./apps/cars-service/src/database/migrations/cars-create-table -d ./apps/cars-service/src/database/typeorm.config.ts --pretty
+npx ts-node-dev -P ./apps/cars-service/tsconfig.app.json ./node_modules/typeorm/cli.js migration:generate ./apps/cars-service/src/database/migrations/cars-create-table -d ./apps/cars-service/src/database/typeorm.config.ts
 ```
 
 Show migration
@@ -72,6 +74,8 @@ npx tsc ./apps/cars-service/src/database/*.ts ./apps/cars-service/src/database/*
 
 ### Prod
 
+*Change NODE_ENV to **prod** in .env file*
+
 Applying Migrations
 
 ```bash
@@ -93,3 +97,40 @@ If the **.env** file is in a special location, use [env-cmd](https://www.npmjs.c
 ```
 
 
+### Nx Executors (Commands)
+
+You can set up [commands](https://nx.dev/nx-api/nx/executors/run-commands) to work with migrations, for example
+
+```json
+"migration:create": {
+  "executor": "nx:run-commands",
+  "options": {
+    "command": "npx typeorm migration:create src/database/migrations/{args.name}",
+    "cwd": "apps/cars-service"
+  }
+}
+```
+
+Or
+
+```json
+"migration:generate": {
+  "executor": "nx:run-commands",
+  "options": {
+    "command": "npx ts-node-dev -P ./tsconfig.app.json ./../../node_modules/typeorm/cli.js migration:generate ./src/database/migrations/{args.name} -d ./src/database/typeorm.config.ts",
+    "cwd": "apps/cars-service"
+  }
+}
+```
+
+And then call the command through the terminal
+
+```bash
+nx run cars-service:migration:create --name=init
+```
+
+Or
+
+```bash
+nx run cars-service:migration:generate --name=users-add-color-column
+```
