@@ -132,5 +132,5 @@ nx run cars-service:migration:create --name=init
 Or
 
 ```bash
-nx run cars-service:migration:generate --name=users-add-color-column
+nx run cars-service:migration:generate --name=cars-add-color-column
 ```
