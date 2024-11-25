@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class UsersAddColorColumn1732531324129 implements MigrationInterface {
-  name = 'UsersAddColorColumn1732531324129';
+export class CarsAddColorColumn1732531324129 implements MigrationInterface {
+  name = 'CarsAddColorColumn1732531324129';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
