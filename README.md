@@ -1,5 +1,7 @@
 # [TypeORM](https://typeorm.io/) Migrations 😅
 
+(Important): Just use [Drizzle ORM](https://orm.drizzle.team/)
+
 *In this example I am using full paths for better understanding*
 
 Here is the [nx](https://nx.dev/) project which has one app [cars-service](apps/cars-service).
